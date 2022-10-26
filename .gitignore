@@ -1,0 +1,10 @@
+__pycache__
+.eggs
+*.egg-info
+*.log
+*.out
+*.wav
+*.h5
+.venv
+
+egs/*/exp

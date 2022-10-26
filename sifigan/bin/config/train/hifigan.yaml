@@ -1,0 +1,67 @@
+# Interval setting
+discriminator_train_start_steps: 0    # Number of steps to start to train discriminator.
+train_max_steps: 400000               # Number of pre-training steps.
+save_interval_steps: 100000           # Interval steps to save checkpoint.
+eval_interval_steps: 2000             # Interval steps to evaluate the network.
+log_interval_steps: 2000              # Interval steps to record the training log.
+resume:                               # Epoch to resume training.
+
+# Loss balancing coefficients.
+lambda_mel: 45.0
+lambda_reg: 0.0
+lambda_adv: 1.0
+lambda_fm: 2.0
+
+# Mel-spectral loss setting
+mel_loss:
+  _target_: sifigan.losses.MelSpectralLoss
+  fft_size: 1024        # FFT size for STFT-based loss.
+  hop_size: 256         # Hop size for STFT-based loss
+  win_length: 1024      # Window length for STFT-based loss.
+  window: hann_window   # Window function for STFT-based loss.
+  sample_rate: 24000    # Samplring rate.
+  n_mels: 80            # Number of bins of mel-filter-bank.
+  fmin: 0               # Minimum frequency of mel-filter-bank.
+  fmax: null            # Maximum frequency of mel-filter-bank.
+                        # If null, it will be fs / 2.
+
+# Adversarial loss setting
+adv_loss:
+  _target_: sifigan.losses.AdversarialLoss
+  average_by_discriminators: false  # Whether to average loss by #discriminators.
+  loss_type: mse
+
+# Feature matching loss setting
+fm_loss:
+  _target_: sifigan.losses.FeatureMatchLoss
+  average_by_layers: false  # Whether to average loss by #layers in each discriminator.
+
+# Optimizer and scheduler setting
+generator_optimizer:
+  _target_: torch.optim.Adam
+  lr: 2.0e-4
+  betas: [0.5, 0.9]
+  weight_decay: 0.0
+generator_scheduler:
+  _target_: torch.optim.lr_scheduler.MultiStepLR
+  gamma: 0.5
+  milestones:
+    - 200000
+    - 400000
+    - 600000
+    - 800000
+generator_grad_norm: 10
+discriminator_optimizer:
+  _target_: torch.optim.Adam
+  lr: 2.0e-4
+  betas: [0.5, 0.9]
+  weight_decay: 0.0
+discriminator_scheduler:
+  _target_: torch.optim.lr_scheduler.MultiStepLR
+  gamma: 0.5
+  milestones:
+    - 200000
+    - 400000
+    - 600000
+    - 800000
+discriminator_grad_norm: 10

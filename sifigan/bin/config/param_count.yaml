@@ -1,0 +1,15 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - generator: sifigan
+
+hydra:
+  run:
+    dir: ./
+  output_subdir: null
+  job_logging:
+    formatters:
+      simple:
+        format: '[%(asctime)s][%(levelname)s][%(module)s | %(lineno)s] %(message)s'
+    disable_existing_loggers: false

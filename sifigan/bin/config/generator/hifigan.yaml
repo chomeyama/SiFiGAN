@@ -1,0 +1,27 @@
+_target_: sifigan.models.HiFiGANGenerator
+in_channels: 45                       # Number of input channels.
+out_channels: 1                       # Number of output channels.
+channels: 512                         # Number of initial channels.
+kernel_size: 7                        # Kernel size of initial and final conv layers.
+upsample_scales: [5, 4, 3, 2]         # Upsampling scales.
+upsample_kernel_sizes: [10, 8, 6, 4]  # Kernel size for upsampling layers.
+qp_resblock_kernel_size: 3            # Kernel size for quasi-periodic residual blocks.
+qp_resblock_dilations:                # Dilations for quasi-periodic residual blocks.
+    - [1]
+    - [1, 2]
+    - [1, 2, 4]
+    - [1, 2, 4, 8]
+qp_use_additional_convs: true         # Whether to use additional conv layers.
+resblock_kernel_sizes: [3, 7, 11]     # Kernel size for residual blocks.
+resblock_dilations:                   # Dilations for residual blocks.
+    - [1, 3, 5]
+    - [1, 3, 5]
+    - [1, 3, 5]
+use_additional_convs: true            # Whether to use additional conv layer in residual blocks.
+use_sine_embs: false                  # Whether to use sine embeddings.
+use_qp_resblocks: false               # Whether to use quasi-periodic residual blocks.
+bias: true                            # Whether to use bias parameter in conv.
+nonlinear_activation: "LeakyReLU"     # Nonlinear activation type.
+nonlinear_activation_params:          # Nonlinear activation paramters.
+    negative_slope: 0.1
+use_weight_norm: true                 # Whether to apply weight normalization.

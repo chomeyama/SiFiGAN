@@ -1,0 +1,41 @@
+# @package _global_
+
+hydra:
+  run:
+    dir: ./
+  output_subdir: null
+  job_logging:
+    formatters:
+      simple:
+        format: '[%(asctime)s][%(levelname)s][%(module)s | %(lineno)s] %(message)s'
+    disable_existing_loggers: false
+
+audio: data/scp/namine_ritsu_all.scp # List filr of input wav files.
+in_dir: wav                   # Directory of input feature files.
+out_dir: hdf5                 # Directory to save generated samples.
+feature_format: h5            # Feature format.
+sample_rate: 24000          # Sampling rate.
+spkinfo: data/spk_info.yaml   # YAML format speaker information.
+spkidx: -4                    # Speaker index of the split path.
+inv: true                     # If false, wav is restored from acoustic features.
+
+# Audio preprocess setting.
+highpass_cutoff: 70           # Cut-off-frequency for low-cut-filter.
+pow_th:                       # Threshold of power.
+
+# Mel-spectrogram extraction setting.
+fft_size: 1024                # FFT size.
+hop_size: 120                 # Hop size.
+win_length: 1024              # Window length.
+                              # If set to null, it will be same as fft_size.
+window: hann                  # Window function.
+num_mels: 80                  # Number of mel basis.
+fmin: 0                       # Minimum frequency in mel basis calculation.
+fmax: null                    # Maximum frequency in mel basis calculation.
+
+# WORLD feature extraction setting.
+minf0: 100                    # F0 setting: minimum f0.
+maxf0: 840                    # F0 setting: maximum f0.
+shiftms: 5                    # F0 setting: frame shift (ms).
+mcep_dim: 39                  # Mel-cepstrum setting: number of dimension.
+mcap_dim: 19                  # Mel-cepstrum setting: number of dimension.

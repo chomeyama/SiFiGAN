@@ -1,0 +1,15 @@
+# @package _global_
+
+hydra:
+  run:
+    dir: ./
+  output_subdir: null
+  job_logging:
+    formatters:
+      simple:
+        format: '[%(asctime)s][%(levelname)s][%(module)s | %(lineno)s] %(message)s'
+    disable_existing_loggers: false
+
+feats: data/scp/namine_ritsu_train_no_dev.list      # List file of input features.
+stats: data/stats/namine_ritsu_train_no_dev.joblib  # Path to file to output statistics.
+feat_types: ['f0', 'cf0', 'uv', 'mcep', 'bap']      # Feature types.

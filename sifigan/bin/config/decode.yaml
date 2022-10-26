@@ -1,0 +1,23 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - generator: sifigan
+  - data: namine_ritsu
+
+hydra:
+  run:
+    dir: ./
+  output_subdir: null
+  job_logging:
+    formatters:
+      simple:
+        format: '[%(asctime)s][%(levelname)s][%(module)s | %(lineno)s] %(message)s'
+    disable_existing_loggers: false
+
+out_dir:                  # Directory to output decoding results.
+checkpoint_path:          # Path to the checkpoint of pre-trained model.
+checkpoint_steps: 400000  # Path to the checkpoint of pre-trained model.
+seed: 100                 # Seed number for random numbers.
+save_source: false        # Whether to save source excitation signals.
+f0_factors: [1.00]  # F0 factor.
