@@ -1,13 +1,12 @@
-# SourceFilterHiFiGAN
-Official Implementation of Source-Filter HiFiGAN (SiFiGAN)
+# Source-Filter HiFi-GAN (SiFi-GAN)
 
-This repo provides official PyTorch implementation of [SiFiGAN](), a fast and pitch controllable high-fidelity neural vocoder.<br>
+This repo provides official PyTorch implementation of [SiFi-GAN](), a fast and pitch controllable high-fidelity neural vocoder.<br>
 For more information, please see our [demo](https://chomeyama.github.io/SiFiGAN-Demo/).
 
 ## Environment setup
 
 ```bash
-$ cd SourceFilterHiFiGAN
+$ cd SiFiGAN
 $ pip install -e .
 ```
 
