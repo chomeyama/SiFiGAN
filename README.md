@@ -1,7 +1,7 @@
 # Source-Filter HiFi-GAN (SiFi-GAN)
 
-This repo provides official PyTorch implementation of [SiFi-GAN](), a fast and pitch controllable high-fidelity neural vocoder.<br>
-For more information, please see our [demo](https://chomeyama.github.io/SiFiGAN-Demo/).
+This repo provides official PyTorch implementation of [SiFi-GAN](https://arxiv.org/abs/2210.15533), a fast and pitch controllable high-fidelity neural vocoder.<br>
+For more information, please see our [DEMO](https://chomeyama.github.io/SiFiGAN-Demo/).
 
 ## Environment setup
 
@@ -72,7 +72,15 @@ $ tensorboard --logdir exp
 If you find the code is helpful, please cite the following article.
 
 ```
-
+@misc{https://doi.org/10.48550/arxiv.2210.15533,
+    author = {Reo Yoneyama and Yi-Chiao Wu and Tomoki Toda},
+    title = {{Source-Filter HiFi-GAN: Fast and Pitch Controllable High-Fidelity Neural Vocoder}},
+    year = {2022},
+    publisher = {arXiv},
+    url = {https://arxiv.org/abs/2210.15533},
+    doi = {10.48550/ARXIV.2210.15533},
+    copyright = {arXiv.org perpetual, non-exclusive license}
+}
 ```
 
 ## Authors
