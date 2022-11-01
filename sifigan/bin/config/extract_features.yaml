@@ -14,7 +14,7 @@ audio: data/scp/namine_ritsu_all.scp # List filr of input wav files.
 in_dir: wav                   # Directory of input feature files.
 out_dir: hdf5                 # Directory to save generated samples.
 feature_format: h5            # Feature format.
-sample_rate: 24000          # Sampling rate.
+sample_rate: 24000            # Sampling rate.
 spkinfo: data/spk_info.yaml   # YAML format speaker information.
 spkidx: -4                    # Speaker index of the split path.
 inv: true                     # If false, wav is restored from acoustic features.
@@ -34,8 +34,8 @@ fmin: 0                       # Minimum frequency in mel basis calculation.
 fmax: null                    # Maximum frequency in mel basis calculation.
 
 # WORLD feature extraction setting.
-minf0: 100                    # F0 setting: minimum f0.
-maxf0: 840                    # F0 setting: maximum f0.
-shiftms: 5                    # F0 setting: frame shift (ms).
-mcep_dim: 39                  # Mel-cepstrum setting: number of dimension.
-mcap_dim: 19                  # Mel-cepstrum setting: number of dimension.
+minf0: 100                    # Minimum F0 value.
+maxf0: 840                    # Maximum F0 value.
+shiftms: 5                    # Frameshift in ms.
+mcep_dim: 39                  # Number of dimension of mel-generalized cepstrum.
+mcap_dim: 19                  # Number of dimention of mel-cepstral aperiodicity.
