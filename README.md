@@ -30,8 +30,8 @@ Hydra provides an easy way to dynamically create a hierarchical configuration by
 
 ### Dataset preparation
 
-Make dataset and scp files denoting paths to each audio files according to your own dataset (E.g., `egs/namine_ritsu/data/scp/namine_ritsu.scp`).<br>
-List files denoting paths to the extracted features are automatically created in the next step (E.g., `egs/namine_ritsu/data/scp/namine_ritsu.list`).<br>
+Make dataset and scp files denoting paths to each audio files according to your own dataset (e.g., `egs/namine_ritsu/data/scp/namine_ritsu.scp`).<br>
+List files denoting paths to the extracted features are automatically created in the next step (e.g., `egs/namine_ritsu/data/scp/namine_ritsu.list`).<br>
 Note that scp/list files for training/validation/evaluation are needed.
 
 ### Preprocessing
@@ -59,8 +59,21 @@ $ sifigan-train generator=sifigan discriminator=univnet train=sifigan data=namin
 
 ```bash
 # Decode with several F0 scaling factors
-$ sifigan-decode out_dir=exp/sifigan checkpoint_steps=400000 f0_factors=[0.5,1.0,2.0]
+$ sifigan-decode generator=sifigan data=namine_ritsu out_dir=exp/sifigan checkpoint_steps=400000 f0_factors=[0.5,1.0,2.0]
 ```
+
+### Analysis-Synthesis
+
+```bash
+# WORLD analysis + Neural vocoder synthesis
+$ sifigan-anasyn generator=sifigan in_dir=your_own_input_wav_dir out_dir=your_own_output_wav_dir stats=pretrained_sifigan/namine_ritsu_train_no_dev.joblib checkpoint_path=pretrained_sifigan/checkpoint-400000steps.pkl f0_factor=1.0
+```
+
+I provide a pretrained SiFiGAN model [HERE]() which is trained on the Namine Ritsu corpus in the same training manner described in the paper.
+You can download and place it in your own directory. Then set the appropriate path to the pretrained model and the command should work.
+
+However, since the Namine Ritsu corpus includes a single female Japanese singer, there is a possibility that the model would not work well especially for make singers.
+I am planning to publish another pretrained model trained on larger dataset including many speakers.
 
 ### Monitor training progress
 

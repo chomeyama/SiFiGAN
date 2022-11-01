@@ -1,0 +1,37 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - generator: sifigan
+
+hydra:
+  run:
+    dir: ./
+  output_subdir: null
+  job_logging:
+    formatters:
+      simple:
+        format: '[%(asctime)s][%(levelname)s][%(module)s | %(lineno)s] %(message)s'
+    disable_existing_loggers: false
+
+in_dir:             # Path to directory which include wav files you want to process.
+out_dir:            # Path to directory to save the synthesized wavs.
+stats:              # Path to statistics file.
+checkpoint_path:    # Path to pre-trained model.
+f0_factors: [1.00]  # F0 scaling factor.
+seed: 100           # Seed number for random numbers.
+
+# The same parametes should be set as in the training.
+sample_rate: 24000             # Sampling rate.
+frame_period: 5                # Frameshift in ms.
+f0_floor: 100                  # Minimum F0 for WORLD F0 analysis.
+f0_ceil: 840                   # Maximum F0 for WORLD F0 analysis.
+mcep_dim: 39                   # Number of dimension of mel-generalized cepstrum.
+mcap_dim: 19                   # Number of dimention of mel-cepstral aperiodicity.
+aux_feats: ["mcep", "bap"]     # Input acoustic features.
+dense_factors: [0.5, 1, 4, 8]  # Dense factor in PDCNNs.
+df_f0_type: "cf0"              # F0 type for dilation factor ("f0" or "cf0").
+sine_amp: 0.1                  # Sine amplitude.
+noise_amp: 0.003               # Noise amplitude.
+sine_f0_type: "cf0"            # F0 type for sine signal ("f0" or "cf0").
+signal_types: ["sine"]         # List of input signal types.
