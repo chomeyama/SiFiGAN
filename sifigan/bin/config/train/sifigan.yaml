@@ -1,6 +1,6 @@
 # Interval setting
 discriminator_train_start_steps: 0    # Number of steps to start to train discriminator.
-train_max_steps: 400000               # Number of pre-training steps.
+train_max_steps: 500000               # Number of pre-training steps.
 save_interval_steps: 100000           # Interval steps to save checkpoint.
 eval_interval_steps: 2000             # Interval steps to evaluate the network.
 log_interval_steps: 2000              # Interval steps to record the training log.
@@ -10,7 +10,7 @@ resume:                               # Epoch to resume training.
 lambda_mel: 45.0
 lambda_reg: 1.0
 lambda_adv: 1.0
-lambda_fm: 0.0
+lambda_fm: 2.0
 
 # Mel-spectral loss setting
 mel_loss:
@@ -62,10 +62,10 @@ generator_scheduler:
   _target_: torch.optim.lr_scheduler.MultiStepLR
   gamma: 0.5
   milestones:
+    - 100000
     - 200000
+    - 300000
     - 400000
-    - 600000
-    - 800000
 generator_grad_norm: 10
 discriminator_optimizer:
   _target_: torch.optim.Adam
@@ -76,8 +76,8 @@ discriminator_scheduler:
   _target_: torch.optim.lr_scheduler.MultiStepLR
   gamma: 0.5
   milestones:
+    - 100000
     - 200000
+    - 300000
     - 400000
-    - 600000
-    - 800000
 discriminator_grad_norm: 10

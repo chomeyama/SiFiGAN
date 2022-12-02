@@ -6,10 +6,10 @@
 """Snake Activation Function Module.
 
 References:
+    - Neural Networks Fail to Learn Periodic Functions and How to Fix It
+        https://arxiv.org/pdf/2006.08195.pdf
     - BigVGAN: A Universal Neural Vocoder with Large-Scale Training
         https://arxiv.org/pdf/2206.04658.pdf
-    - Reproducibility Report: Neural Networks Fail to Learn Periodic Functions and How to Fix It
-        https://openreview.net/pdf?id=ysFCiXtCOj
 
 """
 
@@ -20,11 +20,19 @@ import torch.nn as nn
 class Snake(nn.Module):
     """Snake activation function module."""
 
-    def __init__(self, channels):
-        """Initialize Snake module."""
+    def __init__(self, channels, init=50):
+        """Initialize Snake module.
+
+        Args:
+            channels (int): Number of feature channels.
+            init (float): Initial value of the learnable parameter alpha.
+                          According to the original paper, 5 ~ 50 would be
+                          suitable for periodic data (i.e. voices).
+
+        """
         super(Snake, self).__init__()
-        # learnable parameter
-        self.alpha = nn.Parameter(torch.ones((1, channels, 1)))
+        alpha = init * torch.ones(1, channels, 1)
+        self.alpha = nn.Parameter(alpha)
 
     def forward(self, x):
         """Calculate forward propagation.

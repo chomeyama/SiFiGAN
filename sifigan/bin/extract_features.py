@@ -55,10 +55,9 @@ def path_create(wav_list, in_dir, out_dir, extname):
 
 def path_replace(filepath, inputpath, outputpath, extname=None):
     if extname is not None:
-        filepath = f"{filepath.split('.')[0]}.{extname}"
+        filepath = f"{os.path.splitext(filepath)[0]}.{extname}"
     filepath = filepath.replace(inputpath, outputpath)
-    if not os.path.exists(os.path.dirname(filepath)):
-        os.makedirs(os.path.dirname(filepath))
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
     return filepath
 
 

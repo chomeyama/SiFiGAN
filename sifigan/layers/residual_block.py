@@ -16,6 +16,7 @@ from logging import getLogger
 
 import torch
 import torch.nn as nn
+from sifigan.layers import Snake
 from sifigan.utils import index_initial, pd_indexing
 
 # A logger for this file
@@ -102,9 +103,13 @@ class ResidualBlock(nn.Module):
             self.convs2 = nn.ModuleList()
         assert kernel_size % 2 == 1, "Kernel size must be odd number."
         for dilation in dilations:
+            if nonlinear_activation == "Snake":
+                nonlinear = Snake(channels, **nonlinear_activation_params)
+            else:
+                nonlinear = getattr(nn, nonlinear_activation)(**nonlinear_activation_params)
             self.convs1 += [
                 nn.Sequential(
-                    getattr(nn, nonlinear_activation)(**nonlinear_activation_params),
+                    nonlinear,
                     nn.Conv1d(
                         channels,
                         channels,
@@ -116,9 +121,13 @@ class ResidualBlock(nn.Module):
                 )
             ]
             if use_additional_convs:
+                if nonlinear_activation == "Snake":
+                    nonlinear = Snake(channels, **nonlinear_activation_params)
+                else:
+                    nonlinear = getattr(nn, nonlinear_activation)(**nonlinear_activation_params)
                 self.convs2 += [
                     nn.Sequential(
-                        getattr(nn, nonlinear_activation)(**nonlinear_activation_params),
+                        nonlinear,
                         nn.Conv1d(
                             channels,
                             channels,
@@ -183,7 +192,10 @@ class AdaptiveResidualBlock(nn.Module):
         if use_additional_convs:
             self.convsA = nn.ModuleList()
         for _ in dilations:
-            self.nonlinears += [getattr(nn, nonlinear_activation)(**nonlinear_activation_params)]
+            if nonlinear_activation == "Snake":
+                self.nonlinears += [Snake(channels, **nonlinear_activation_params)]
+            else:
+                self.nonlinears += [getattr(nn, nonlinear_activation)(**nonlinear_activation_params)]
             self.convsC += [
                 Conv1d1x1(
                     channels,
@@ -206,9 +218,13 @@ class AdaptiveResidualBlock(nn.Module):
                 ),
             ]
             if use_additional_convs:
+                if nonlinear_activation == "Snake":
+                    nonlinear = Snake(channels, **nonlinear_activation_params)
+                else:
+                    nonlinear = getattr(nn, nonlinear_activation)(**nonlinear_activation_params)
                 self.convsA += [
                     nn.Sequential(
-                        getattr(nn, nonlinear_activation)(**nonlinear_activation_params),
+                        nonlinear,
                         nn.Conv1d(
                             channels,
                             channels,
